@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101112"><title>聲軌實驗室 — MV Stem Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="#"><span class="brand-icon">◖</span><span>聲軌實驗室<small>MV STEM STUDIO</small></span></a><nav><a href="#studio">工作台</a><a href="#guide">使用說明</a><a href="https://github.com/timcsy/demucs-web" target="_blank" rel="noreferrer">技術來源 ↗</a></nav><span class="local-pill"><i></i>本機處理</span></header>
+<main>
+ <section class="hero"><div class="eyebrow"><span></span> BROWSER-BASED AUDIO WORKSPACE</div><h1>讓每一條聲音，<em>各就其位。</em></h1><p>在瀏覽器分離音軌、微調音高，為你的 MV 做出專屬伴奏版本。</p></section>
+ <section class="studio" id="studio">
+   <div class="panel media-panel"><div class="panel-head"><div><span class="step">01</span><h2>載入媒體</h2></div><span class="muted">影片與音訊只留在你的裝置</span></div>
+    <label class="drop" id="drop"><input id="file" type="file" accept="video/*,audio/*"><span class="upload-icon">↑</span><strong>拖放 MV 或音訊到這裡</strong><small>或點擊選擇檔案 · MP4、WebM、MP3、WAV</small></label>
+    <div class="media-preview hidden" id="preview-wrap"><video id="video" controls playsinline></video><audio id="audio" controls class="hidden"></audio><div class="file-meta"><span id="filename">—</span><button class="text-button" id="clear">移除</button></div></div>
+    <div class="notice"><span>✳</span><span>請使用你擁有或已取得授權的素材。<a href="https://vd6s.net/zh-tw4/" target="_blank" rel="noreferrer">前往 Vd6s</a> 可下載獲准保存的影片。</span></div>
+   </div>
+   <div class="panel process-panel"><div class="panel-head"><div><span class="step">02</span><h2>AI 分離音軌</h2></div><span class="tag">DEMUCS · 4 STEMS</span></div>
+     <p class="panel-copy">模型首次載入約 172 MB，分離運算在瀏覽器本機完成。</p>
+     <div class="engine-row"><span class="engine-dot"></span><span id="engine-status">尚未載入模型</span><button class="text-button" id="load-model">載入模型</button></div>
+     <button class="primary" id="separate" disabled><span>✦</span> 分離音軌</button>
+     <button id="cancel" class="text-button hidden">取消處理</button><div class="progress-wrap hidden" id="progress-wrap"><div class="progress-label"><span id="progress-label">準備中…</span><span id="progress-pct">0%</span></div><div class="track"><i id="progress"></i></div></div>
+     <div class="stem-list" id="stems"></div>
+     <label class="import-stems">已有分離結果？匯入四軌 WAV<input id="import-stems" type="file" multiple accept=".wav,audio/wav"></label>
+     <p class="fineprint">選取 drums.wav、bass.wav、other.wav、vocals.wav，可接續混音。</p>
+   </div>
+   <div class="panel controls-panel"><div class="panel-head"><div><span class="step">03</span><h2>伴奏播放台</h2></div><span class="muted">可混音與匯出</span></div>
+    <div class="now-playing"><div class="disc">♫</div><div><strong id="playing-title">尚未選擇音軌</strong><small id="playing-sub">上傳媒體並完成分離後開始播放</small></div><button id="play" class="play-btn" aria-label="播放" disabled>▶</button></div>
+    <div class="transport"><input type="range" id="seek" min="0" max="1" step="0.1" value="0" aria-label="播放進度" disabled><output id="time">0:00 / 0:00</output><label><input type="checkbox" id="loop" disabled> 循環播放</label></div><div class="presets"><button class="text-button" id="preset-karaoke" disabled>純伴奏</button><button class="text-button" id="preset-original" disabled>全部音軌</button></div><div class="mix-title"><span>音軌混音</span><span class="muted">音量</span></div><div class="mixers" id="mixers"></div>
+    <div class="key-row"><div><strong>音高調整</strong><small>半音升降 · 播放速度同步改變</small></div><div class="key-control"><button id="key-down" disabled>−</button><output id="key-value">0</output><button id="key-up" disabled>＋</button><span>半音</span></div></div>
+    <button class="secondary" id="download" disabled>↓　下載伴奏音訊</button>
+    <button class="secondary" id="download-video" disabled>↓　匯出伴奏 MV（WebM）</button><button class="text-button hidden" id="cancel-export">取消匯出</button><p id="message" role="status" aria-live="polite"></p><p class="fineprint">WAV 與 MV 匯出包含目前的混音與音高。升降 key 會同步改變速度。MV 以播放時間錄製，請保留分頁在前景；切換分頁將取消匯出。</p>
+   </div>
+ </section>
+ <section class="guide" id="guide"><div><span class="step">WORKFLOW</span><h2>三步完成你的伴奏 MV</h2></div><div class="guide-steps"><article><b>01</b><strong>加入影片</strong><p>選擇本機擁有或已獲授權的 MV 檔案。</p></article><article><b>02</b><strong>分離音軌</strong><p>載入 Demucs 模型，等待瀏覽器完成四軌分析。</p></article><article><b>03</b><strong>調整與匯出</strong><p>靜音人聲、混合伴奏，調整音高並匯出 WAV 或伴奏 MV。</p></article></div></section>
+ <footer><span>聲軌實驗室 <small>個人音訊工作台</small></span><span>Powered by <a href="https://github.com/timcsy/demucs-web" target="_blank" rel="noreferrer">Demucs Web</a> · MIT</span></footer>
+</main><script type="module" src="app.js"></script></body></html>
